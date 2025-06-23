@@ -1,0 +1,29 @@
+{% extends "index.html" %}
+
+{% block body %}
+    <h2>
+        <a class="button grayButton" href="{{ url_for('home') }}">Home</a>
+        <a class="button grayButton" href="">logout</a>
+    </h2>
+<h3>Team Creation</h3>
+<div class="flex-container">
+    <div class="section" style="width: 50%">
+        <h2>TEAM</h2>
+        <h3>
+            1. Team name
+        </h3>
+        <input type="text" placeholder="Enter team name" style="width: 80%; font-family: 'LemonMilkMedium'; margin-left: 10%">
+
+        <h3>
+            2. Set Roster
+        </h3>
+            <p>Select 12 players from the list of available players. The combined cost of all players on your roster cannot exceed $1200.</p>
+
+    </div>
+
+    <div class="section" style="width: 25%">
+        <h2>AVAILABLE ENTRANTS</h2>
+    </div>
+</div>
+
+{% endblock %}

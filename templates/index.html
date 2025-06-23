@@ -5,12 +5,11 @@
 <body>
     <h1>norcal arcadian 2025 fantasy! :)</h1>
     <script src="/static/serve.js" charset="utf-8"></script>
-
+    {% block body %}
     <h2>
-        <a class="button grayButton" href="">create team</a>
+        <a class="button grayButton" href="{{ url_for('create') }}">create team</a>
         <a class="button grayButton" href="">logout</a>
     </h2>
-
     <div class="leaderboard">
         <h2>leaderboard</h2>
         <input type="text" placeholder="Player Search..." style="width: 800px; font-family: 'LemonMilkMedium'; margin-left: 30%">
@@ -41,4 +40,5 @@
             </table>
         </div>
     </div>
+    {% endblock %}
 </body>
