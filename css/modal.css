@@ -1,0 +1,74 @@
+@import url('root.css');
+
+
+.modal {
+    display: none;
+    left: 0;
+    right: 0;
+    z-index: 101;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal:target {
+    display: block;
+}
+
+.modal-content {
+    opacity: 0;
+    flex-grow: 1;
+    margin: 2rem 3rem;
+    padding-bottom: 1rem;
+
+    background-color: #fff;
+    border-radius: 2rem;
+    backdrop-filter: blur(var(--blur-amt));
+    -webkit-backdrop-filter: blur(var(--blur-amt));
+    background-color: var(--transparent-bg);
+    overflow: hidden;
+
+    animation-name: fadeOut;
+    animation-duration: 0.25s;
+}
+
+.modal:target .modal-content{
+    opacity: 1;
+    animation-name: fadeIn;
+    animation-duration: 0.25s;
+}
+
+.modal-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    background-color: var(--transparent-bg);
+    border-top-left-radius: 2rem;
+    border-top-right-radius: 2rem;
+
+    padding: 1rem 2rem;
+    margin-bottom: 1rem;
+}
+
+.modal-header button {
+    cursor: pointer;
+    margin-right: 0;
+    text-align:center;
+    padding: 0em;
+    font-size: 1.0rem;
+    border-radius: 50%;
+    background-color: var(--button-color-active);
+    color: var(--button-text-idle);
+    width: 2rem;
+    height: 2rem;
+    transition: all 0.25s ease-out;
+}
+
+.modal-header button:hover {
+    color: var(--button-text-hover);
+}
+
+.modal:target{
+    visibility: visible;
+    display: block;
+}

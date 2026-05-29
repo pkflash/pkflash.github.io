@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="/css/style.css">
+  <title>HOJA Baseband Updater</title>
+  <style>
+    #terminal {
+      background: rgba(46, 7, 0, 0.514);
+      color: rgb(147, 250, 147);
+      margin-top: 1rem;
+      padding: 10px;
+      border-radius: 5px;
+      height: 30rem;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      font-size: small;
+      text-align: left;
+      font-family: system-ui;
+    }
+
+    .toggle-switch {
+      position: absolute;
+      display: flex;
+      left: 1rem;
+      top: 0.5rem;
+      align-items: center;
+
+    }
+
+    .switch-label {
+      font-size: 16px;
+      margin-right: 0.25rem;
+      margin-left: 0.25rem;
+    }
+
+    .switch {
+      position: relative;
+      display: inline-block;
+      width: 50px;
+      height: 25px;
+    }
+
+    .toggle-checkbox {
+      display: none;
+    }
+
+    .slider {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: #ccc;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+
+    .slider::before {
+      content: "";
+      position: absolute;
+      height: 21px;
+      width: 21px;
+      left: 2px;
+      bottom: 2px;
+      background-color: white;
+      border-radius: 50%;
+      transition: transform 0.3s;
+    }
+
+    .toggle-checkbox:checked+.switch .slider {
+      background-color: #2196F3;
+    }
+
+    .toggle-checkbox:checked+.switch .slider::before {
+      transform: translateX(25px);
+    }
+
+    .toggle-switch.disabled {
+      opacity: 0.5;
+      pointer-events: none;
+      /* Prevent interaction with the switch */
+    }
+
+    .toggle-checkbox:disabled+.switch .slider {
+      background-color: #bbb;
+      /* Grey out the switch */
+    }
+
+    .toggle-checkbox:disabled+.switch .slider::before {
+      background-color: #e0e0e0;
+      /* Grey out the slider */
+    }
+
+    #chromemsg[enabled="true"] {
+      border-radius: 0.5rem;
+      background-color: rgba(195, 252, 63, 0.651);
+      margin-top: 2rem;
+      margin-left: auto;
+      margin-right: auto;
+      width: 20rem;
+    }
+
+    #updatedtime {
+      font-size: 16px;
+      position: absolute;
+      right: 1rem;
+      top: 0.5rem;
+    }
+  </style>
+  <script defer="defer" src="bundle.js"></script>
+</head>
+
+<body>
+  <div class="context">
+    <h1>HOJA Baseband Updater</h1>
+  </div>
+  <div class="box">
+    <div class="toggle-switch"><label class="switch-label" for="toggle-checkbox">Serial</label> <input type="checkbox"
+        id="toggle-checkbox" class="toggle-checkbox"> <label class="switch" for="toggle-checkbox"><span
+          class="slider"></span></label> <label class="switch-label" for="toggle-checkbox">WebUSB</label></div>
+    <p id="updatedtime">Updated 7.25.2024</p>
+    <p id="chromemsg"></p>
+    <h2>Steps to update:</h2>
+    <p>1. Click connect and select the USB Serial device.</p>
+    <p>2. Click `Erase` and wait for the confirmation.</p>
+    <p>3. Click `Flash` and the installation will proceed.</p>
+    <p>4. Windows connection issues? <br> <a href="https://github.com/HandHeldLegend/handheldlegend.github.io/raw/refs/heads/master/hoja_esptool/hoja-local-updater-win.zip" target="_blank" rel="noopener noreferrer">Download the local updater</a>. <br> Unzip and run the .bat file</p>
+    <div class="row"><button id="connectBtn">Connect</button> <button id="eraseBtn">Erase</button> <button
+        id="flashBtn">Flash</button></div>
+    <div id="terminal"></div>
+  </div>
+</body>
+
+</html>

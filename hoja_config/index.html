@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <script>
+        (function() {
+            // Check if we've already reloaded
+            if (sessionStorage.getItem('cacheCleared')) return;
+            
+            // Mark that we've cleared the cache
+            sessionStorage.setItem('cacheCleared', 'true');
+    
+            // Clear localStorage
+            localStorage.clear();
+    
+            // Clear sessionStorage (excluding the reload flag)
+            const reloadFlag = sessionStorage.getItem('cacheCleared');
+            sessionStorage.clear();
+            sessionStorage.setItem('cacheCleared', reloadFlag);
+    
+            // Clear cookies
+            document.cookie.split(";").forEach(function(c) {
+                document.cookie = c.replace(/^ +/, "")
+                    .replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/");
+            });
+    
+            // Clear cache using Service Worker if available
+            if ('caches' in window) {
+                caches.keys().then(function(names) {
+                    names.forEach(function(name) {
+                        caches.delete(name);
+                    });
+                });
+            }
+    
+            // Unregister any existing service workers
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(function(registrations) {
+                    registrations.forEach(function(registration) {
+                        registration.unregister().then(function(success) {
+                            console.log("Service Worker unregistered:", success);
+                        });
+                    });
+                });
+            }
+    
+            // Prevent back-forward cache
+            window.onpageshow = function(event) {
+                if (event.persisted) {
+                    window.location.reload();
+                }
+            };
+    
+            // Force reload from server (only once)
+            window.location.reload(true);
+        })();
+    </script>
+
+    <title>Config Tool Update Notice</title>
+    <style>
+        :root {
+            --pastel-blue: #24b1e9;
+            --pastel-pink: #f5afaf;
+            --pastel-green: #abf3b0;
+            --text-color: #2e2d2d;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background-color: var(--pastel-blue);
+            color: var(--text-color);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 1rem;
+            background-color: white;
+            border-radius: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+
+        .announcement {
+            background-color: var(--pastel-pink);
+            padding: 0.5rem;
+            border-radius: 12px;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            color: #2D3748;
+            margin-bottom: 0.5rem;
+            font-size: 2.5rem;
+        }
+
+        .button {
+            display: inline-block;
+            background-color: var(--pastel-green);
+            color: var(--text-color);
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            margin-top: 1rem;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="announcement">
+            <div class="icon">🎉</div>
+            <h1>We've Upgraded to Hoja 2!</h1>
+            <p>Our configuration tool and Hoja firmware has been completely redesigned with new features and improvements.</p>
+        </div>
+        
+        <div class="details">
+            <h2>What's New?</h2>
+            <p>An all-new angle calibration system allowing for notched gateplates with user-specified input/output angles.</p>
+            <p>Gyro is smoother and more efficient.</p>
+            <p>Low-level performance-related bugs have been ironed out.</p>
+            <p>Haptics are more responsive and more detailed.</p>
+            <p>New RGB Reactive Mode.</p>
+            <p>More control over analog triggers.</p>
+            <p>Appearance settings for Nintendo Switch consoles (Wired only)</p>
+
+            <h2>What is being worked on?</h2>
+            <p>Existing RGB modes such as Fairy mode have not been ported (yet).</p>
+            <p>Battery status indicators</p>
+
+            <h2>How do I install?</h2>
+            <p>Simply navigate to our new tool using the button below.</p>
+            <p>Connect your controller and follow the prompt instructions.</p>
+            
+            <a href="https://handheldlegend.github.io/hoja2/" class="button">Try the New Config Tool →</a>
+        </div>
+    </div>
+</body>
+</html>

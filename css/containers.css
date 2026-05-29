@@ -1,0 +1,176 @@
+@import url('root.css');
+
+@keyframes fadeout {
+    0% {
+        opacity: 1;
+        max-height: 100%;
+    }
+    100% {
+        overflow: hidden;
+        max-height: 0;
+        opacity: 0;
+    }
+}
+
+.collapsible[enabled="true"] {
+    max-height: 1200px;
+    height: auto;
+    opacity: 100;
+    transition: all 0.35s ease-in-out;
+}
+
+.collapsible {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: all 0.35s ease-in-out;
+}
+
+/* Dropdown styling */
+.collapsible .toggle {
+    display: block;
+    transition: all 0.25s ease-out;
+    opacity: 0;
+    height: 0;
+}
+
+/* Label Styling */
+.collapsible .lbl-toggle {
+    opacity: 100;
+    height: inherit;
+    display: block;
+    font-size: 1.5rem;
+    text-align: center;
+    padding: 0.3rem;
+    width:inherit;
+    margin-top: var(--margin-small);
+    margin-left: auto;
+    margin-right: auto;
+    color: rgba(0, 0, 0, 0.596);
+    background: var(--button-color-active);
+    cursor: pointer;
+    border-radius: 0.5rem;
+    transition: all 0.25s ease-out;
+    border-bottom: 0.25rem solid rgba(0, 0, 0, 0.295);
+}
+
+.collapsible .lbl-toggle:hover {
+    color: #FFF;
+}
+
+/*.collapsible .lbl-toggle:hover {
+    color: rgba(0, 0, 0, 0.596);
+    
+}*/
+
+.collapsible .lbl-toggle::before {
+    content: ' ';
+    display: inline-block;
+    border-top: 0.45rem solid transparent;
+    border-bottom: 0.45rem solid transparent;
+    border-left: 0.45rem solid currentColor;
+    vertical-align: middle;
+    margin-right: .7rem;
+    transform: translateY(-.14rem);
+    transition: transform .2s ease-out;
+}
+
+.collapsible .dropdown {
+    background: var(--dropdown-color);
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+    height: fit-content;
+    max-height: 0;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: inherit;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+
+    transition: all .25s ease-in-out;
+}
+
+.collapsible .toggle:checked+.lbl-toggle::before {
+    transform: rotate(90deg) translateX(-.14rem);
+}
+.collapsible .toggle:checked+.lbl-toggle+.dropdown {
+    max-height: 60em;
+    width: inherit;
+    height: fit-content;
+
+    padding-left: 0.25rem;
+    padding-right: 0.25rem;
+    padding-bottom: 1rem;
+}
+.collapsible .toggle:checked+.lbl-toggle {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.collapsible-row-double {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    height: fit-content;
+    width: 98%;
+    flex-direction: row;
+}
+
+.collapsible-column {
+    display: flex;
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    transition: all .25s ease-in-out;
+    height: fit-content;
+}
+
+.collapsible .full-width {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    align-items: center;
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    height: fit-content;
+}
+
+.collapsible-half-width
+{
+    width: 48%;
+    height: fit-content;
+}
+
+@media(max-width: 850px) {
+    .collapsible-column {
+        margin-left: auto;
+        margin-right: auto;
+        width: 50%;
+    }
+}
+
+.column-item {
+    height: fit-content;
+}
+
+.dropdown img {
+    margin-left: auto;
+    margin-right: auto;
+    height: fit-content;
+    border-radius: 1rem;
+    border-bottom: 0.25rem solid rgba(0, 0, 0, 0.45);
+}
+
+.dropdown p {
+    margin-bottom: 0;
+}

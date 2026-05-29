@@ -1,0 +1,23 @@
+{
+  "name": "Hoja Config Tool",
+  "short_name": "HOJA",
+  "start_url": "/hoja_config/index.html",
+  "display": "standalone",
+  "background_color": "#22172b",
+  "theme_color": "black",
+  "scope": ".",
+  "description": "This is a tool to configure Hoja gamepads.",
+  "icons": [
+    {
+      "src": "images/icon_transparent.png",
+      "sizes": "826x826",
+      "type": "image/png"
+    },
+    {
+      "src": "images/icon_full.png",
+      "sizes": "1000x1000",
+      "type": "image/png",
+      "purpose": "maskable"
+    }
+  ]
+}

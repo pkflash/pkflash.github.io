@@ -1,0 +1,259 @@
+#epilepsy-warning {
+    margin-left: auto;
+    margin-right: auto;
+    width: 80%;
+    padding:0.5rem;
+    border-radius: 0.5rem;
+    background-color: rgba(38, 185, 87, 0.658)
+}
+
+#epilepsy-warning p {
+    color: rgb(39, 39, 39);
+}
+
+@keyframes display_in {
+    0% {
+        opacity: 0;
+        height: 0;
+        width: 0;
+    }
+    1% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
+}
+
+@keyframes display_out {
+    from {
+        opacity: 1;
+    }
+    to {
+        opacity: 0;
+        height: 0;
+        width: 0;
+    }   
+}
+
+#cycle-color-div {
+    display: flex;
+    animation: display_in 0.5s ease-in-out;
+}
+
+#cycle-color-div[disabled] {
+    animation: display_out 0.5s ease-in-out;
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+}
+
+#speed-color-div {
+    display:flex;
+    animation: display_in 0.5s ease-in-out;
+}
+
+#speed-color-div[disabled] {
+    animation: display_out 0.5s ease-in-out;
+    pointer-events: none;
+    opacity: 0;
+    display: none;
+}
+
+#user-color-div {
+    display: contents;
+    margin-left: auto;
+    margin-right: auto;
+    animation: display_in 0.5s ease-in-out;
+}
+
+#user-color-div[disabled] {
+    display: none;
+    pointer-events: none;
+    opacity: 0;
+    animation: display_out 0.5s ease-in-out;
+}
+
+
+#hojaColorSvg {
+    align-items: center;
+    margin-top: 1rem;
+    display: flex;
+    margin-left: 1%;
+    margin-right: 1%;
+    width: 48%;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    transition: all .25s ease-in-out;
+    min-height: 10rem;
+}
+
+#hojaColorPicker {
+    margin-top: 1rem;
+    display: flex;
+    margin-right: 1%;
+    width: 49%;
+    flex-direction: column;
+    transition: all .25s ease-in-out;
+    min-height: 10rem;
+}
+
+#lightConfig {
+    display: flex;
+    flex-direction: column;
+
+    text-align: left;
+}
+
+@media(max-width: 850px) {
+
+    #hojaColorSvg {
+        margin-left: auto;
+        margin-right: auto;
+        height: auto;
+        width: 100%;
+    }
+
+    #lightConfig {
+        flex-direction: row;
+    }
+
+    #hojaColorPicker {
+        margin-left: auto;
+        margin-right: auto;
+        width: fit-content;
+    }
+
+    .controller-led {
+        height: auto;
+        max-width: 25rem;
+        margin:auto;
+    }
+}
+
+.triggerColor {
+    display: flex;
+    padding: 0.25rem;
+    flex-wrap: wrap;
+    align-items: center;
+    margin: auto;
+    width: 65%;
+    border-radius: 1rem;
+    background-color: #6665659a;
+}
+
+.triggerColor.disabled {
+    display: none;
+    height: 0;
+}
+
+.triggerColorBtn {
+    overflow: hidden;
+    flex: 1 1 35%;
+    width: 100%;
+    justify-content: center;
+    border-radius: var(--border-radius);
+    border: solid;
+    background-color: rgb(75, 75, 75);
+    border-color: #ffffff00;
+    display: flex;
+    margin: 0.25rem;
+    cursor: pointer;
+    user-select: none; /* Make text non-selectable */
+    transition: all 0.25s ease-out, fill 0.25s ease-out;
+
+    font-weight: 520;
+    text-shadow:
+        -1px -1px 0 rgba(255, 255, 255, 0.521),  
+        1px -1px 0 rgba(255, 255, 255, 0.521),
+        -1px 1px 0 rgba(255, 255, 255, 0.521),
+        1px 1px 0 rgba(255, 255, 255, 0.521);
+}
+
+.triggerColorBtn:hover {
+    border-color: rgba(255, 255, 255, 0.521);
+}
+
+.triggerColorBtn.active {
+    border-color: rgba(255, 255, 255, 0.815);
+}
+
+/* Controller SVG Container class */
+.controller-led {
+    width: 100%;
+    height: 100%;
+}
+
+.controller-led-triggers {
+    width: 75%;
+    height: 100%;
+}
+
+.svgButtonClickable {
+    cursor: pointer;
+    stroke: rgba(128, 128, 128, 0);
+    transition: stroke 0.25s ease-out, fill 0.25s ease-out;
+}
+
+.svgButtonClickable:hover {
+    stroke: rgba(255, 255, 255, 0.521);
+    transition: stroke 0.25s ease-out, fill 0.25s ease-out;
+}
+
+.svgButtonClickable.active {
+    stroke: rgba(255, 255, 255, 0.815);
+    transition: stroke 0.25s ease-out, fill 0.25s ease-out;
+}
+
+#lightSidebar {
+    padding: 2rem 1rem;
+    flex-grow: 1;
+}
+
+#lightSidebar select {
+    display: block;
+}
+
+.IroColorPicker{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.IroBox {
+    margin-left: auto;
+    margin-right: auto;
+}
+.IroSlider {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+#colorPicker {
+    width: 100%;
+    opacity: 1;
+    cursor: pointer;
+    transition: opacity 0.25s ease-out;
+}
+
+#colorPicker:not(.enabled) {
+    pointer-events: none;
+    opacity: 0.5;
+    transition: opacity 0.25s ease-out;
+}
+
+#hexBox {
+    display: flex;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+    margin-top: var(--margin-small);
+    margin-bottom: var(--margin-small);
+}
+
+#lightHex {
+    margin-top: 0.75rem;
+    margin-bottom: var(--margin-small);
+    margin-left: auto;
+    margin-right: auto;
+    width: 10rem;
+}

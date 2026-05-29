@@ -1,0 +1,620 @@
+:root {
+    /* Background gradient (deep → slightly lighter) */
+    --background-lowest: #110f14;
+    --background-low: #221F2F;
+    --background-mid: #393546;
+    /* panel/card */
+    --background-high: #4c4157;
+    --background-highest: #6a5d79;
+
+    --blur-amt: 5px;
+
+    /* Accent & Semantic Colors */
+    --color-accent-primary: #4FB0C6;
+    /* blue‑teal for primary buttons, sliders */
+    --color-accent-secondary: #F29E4C;
+    /* warm orange for secondary actions */
+    --color-success: #6ECE9A;
+    /* on‑state, “enabled” */
+    --color-danger: #E75A7C;
+    /* disconnect, errors */
+
+    /* Text & Borders */
+    --color-text-primary: #F4F3F4;
+    /* main copy & icons */
+    --color-text-secondary: #5A555F;
+    /* subtle labels, dividers */
+    --color-text-tertiary: #A09DA7;
+    /* very muted captions */
+
+    /* Legacy aliases (mapped to new semantics) */
+    --color-primary: var(--color-accent-primary);
+    --color-secondary: var(--color-accent-secondary);
+    --color-background-light: var(--background-mid);
+    --color-background-light-hover: #3A3541;
+    --color-background-dark: var(--background-lowest);
+    --color-background-warning: rgba(242, 158, 76, 0.88);
+
+    /* Buttons */
+    --color-button-disabled: #5A555F;
+    --color-button-neutral: var(--color-accent-primary);
+    --color-button-neutral-hover: #5AC3D1;
+    --color-button-off: var(--color-danger);
+    --color-button-off-hover: #F08BA1;
+    --color-button-on: var(--color-success);
+    --color-button-on-hover: #7FDBAC;
+
+    /* Config Box Elements */
+    --config-box-height: 40px;
+    --config-box-divider-color: #919191;
+    --config-box-width-min: 95%;
+    --config-box-width-max: 550px;
+
+    --box-shadow-inset: inset 4px 4px 6px rgba(0, 0, 0, 0.192), inset -4px -4px 6px rgba(0, 0, 0, 0.192);
+    --box-shadow-open: inset 0px 4px 6px rgba(0, 0, 0, 0.192), inset 0px -4px 6px rgba(0, 0, 0, 0.192);
+
+    /* Spacing */
+    --spacing-xs: 5px;
+    --spacing-sm: 10px;
+    --spacing-md: 15px;
+    --spacing-lg: 20px;
+    --spacing-xl: 30px;
+
+    /* Border Radius */
+    --border-radius-sm: 10px;
+    --border-radius-md: 12px;
+    --border-radius-lg: 15px;
+    --border-radius-round: 50%;
+
+    /* Typography */
+    --font-family-primary: Arial, sans-serif;
+    --font-size-sm: 11px;
+    --font-size-md: 16px;
+    --font-size-lg: 20px;
+
+    /* Transitions */
+    --transition-quick: 0.2s ease;
+    --transition-standard: 0.3s ease;
+
+    color: var(--color-text-primary);
+}
+
+body {
+    font-family: var(--font-family-primary);
+    margin: 0;
+    padding: 0;
+    width: 100vw;
+    height: 100vh;
+    display: block;
+    background-color: var(--background-lowest);
+}
+
+.app-container {
+    margin-left: auto;
+    margin-right: auto;
+    background-color: var(--background-mid);
+    display: flex;
+    flex-direction: column;
+
+    max-width: 800px;
+    height: 100vh;
+    /* Full viewport height */
+}
+
+.app-header-container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+    max-width: inherit;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    /* Ensure it stays on top */
+}
+
+.app-header {
+    max-width: inherit;
+    width: 100%;
+    height: 64px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--background-low);
+}
+
+.center-buttons {
+    display: block;
+    width: fit-content;
+    gap: 10px;
+    margin-left: 40px;
+    align-items: center;
+}
+
+.install-button {
+    display: block;
+    border: none;
+    background-color: var(--color-button-neutral);
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-quick);
+    font-weight: bold;
+    min-width: 90px;
+    height: var(--config-box-height);
+    margin-left: auto;
+    /* This will push it to the right */
+    margin-right: 40px;
+
+    /* Prevent text selection */
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+.install-button[visible="false"] {
+    display: none;
+}
+
+.install-button:hover {
+    background-color: var(--color-button-neutral-hover);
+}
+
+.connect-hint {
+    color: black;
+    display: inline-block;
+    vertical-align: middle;
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-quick);
+    font-weight: bold;
+    width: 85px;
+    height: var(--config-box-height);
+    text-align: center;
+    align-content: center;
+
+    font-size: var(--font-size-sm);
+
+    background-color: var(--color-background-warning);
+}
+
+.header-msg-box {
+    gap: 8px;
+    padding: 0rem;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--background-high);
+    max-width: inherit;
+    max-height: 0;
+    /* Start with 0 height */
+    overflow: hidden;
+    transition: all 0.3s ease-in-out;
+    box-shadow: var(--box-shadow-open);
+    padding-bottom: 0;
+    padding-top: 0;
+    align-items: center;
+    text-align: center;
+}
+
+.header-msg-box[visible=true] {
+    align-items: center;
+    text-align: center;
+    max-height: 550px;
+    /* Adjust as needed */
+    padding-bottom: 8px;
+    padding-top: 8px;
+}
+
+.header-msg-box p {
+    max-width: 500px;
+    margin-block-end: 0;
+    margin-block-start: 0;
+    height: fit-content;
+    padding: 0;
+    width: 100%;
+}
+
+.swap-space {
+    flex-grow: 1;
+    overflow-y: auto;
+    /* Allow scrolling of main content */
+}
+
+/* Utility Classes */
+.text-center {
+    text-align: center;
+}
+
+.flex-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* General styling for the containers */
+.swap-space {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+}
+
+/* App grid styles */
+#app-grid-container {
+    overflow-y: auto;
+    flex: 1;
+    transition: transform 0.5s ease, opacity 0.5s ease;
+    transform: translateX(0);
+}
+
+/* Module container styles */
+#module-container {
+    display: flex;
+    flex-direction: column;
+    /* Stack header and content vertically */
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Start off-screen */
+    width: 100%;
+    height: 100%;
+    /* Fill the viewport */
+    background-color: var(--background-high);
+    /* Example background */
+    transition: transform 0.5s ease;
+    transform: translateX(100%);
+    overflow: hidden;
+    /* Prevent scrollbars on the container itself */
+}
+
+/* Module header stays fixed at the top */
+#module-header {
+    box-shadow: 0;
+    background-color: var(--background-mid);
+    display: flex;
+    flex-shrink: 0;
+    /* Prevent shrinking */
+    align-items: center;
+    justify-content: space-between;
+    /* Distribute header elements */
+    height: 50px;
+    width: 100%;
+    margin: 0;
+    padding: 0 10px;
+    /* Optional: add padding inside the header */
+    z-index: 1;
+    /* Ensure it stays above the scrolling content */
+    transition: box-shadow 0.25s ease;
+}
+
+p {
+    margin-top: 0.5rem;
+    margin-bottom: 0;
+    padding: 0;
+}
+
+#module-header h1 {
+    display: flex;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+    text-align: center;
+}
+
+#module-header[shadow="true"] {
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.575);
+}
+
+/* Back button styling */
+#back-button {
+    background-color: var(--color-button-neutral);
+    color: var(--color-text-primary);
+    border: none;
+    border-radius: var(--border-radius-md);
+    cursor: pointer;
+    transition: var(--transition-quick);
+    font-weight: bold;
+    font-size: 16px;
+    min-width: 70px;
+    height: var(--config-box-height);
+}
+
+#back-button:hover {
+    background-color: var(--color-button-neutral-hover);
+}
+
+/* Module content becomes scrollable */
+#module-content-container {
+    box-sizing: border-box;
+    /* Ensure padding doesn't affect scrollable area */
+    overflow-y: auto;
+    /* Enable vertical scrolling */
+    overflow-x: hidden;
+    /* Prevent horizontal scrolling */
+    padding: 10px;
+    /* Optional: spacing inside the scrollable area */
+    width: 100%;
+    height: 100%;
+}
+
+#module-content {
+    min-height: 0;
+    width: inherit;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    flex-direction: column;
+    padding-bottom: 100px;
+}
+
+/* Visible state for module container */
+#module-container[visible="false"] {
+    transform: translateX(0);
+    /* Bring into view */
+    opacity: 1;
+}
+
+h1,
+h2,
+h3 {
+    margin: 0;
+    position: relative;
+    cursor: inherit;
+    pointer-events: none;
+}
+
+.header-tooltip {
+    pointer-events: all;
+    content: "?";
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 18px;
+    /* Adjust size */
+    height: 18px;
+    /* Adjust size */
+    background-color: #7afff8b7;
+    /* Circle background */
+    color: rgb(0, 0, 0);
+    /* Text color */
+    font-size: 12px;
+    /* Adjust font size */
+    font-weight: bold;
+    border-radius: 50%;
+    /* Makes it circular */
+    position: absolute;
+    top: -5px;
+    /* Adjust for top-right corner */
+    right: -23px;
+    /* Adjust for spacing */
+    cursor: pointer;
+    /* Indicates interactivity */
+    transition: all 0.2s;
+}
+
+.header-tooltip:hover {
+    background-color: #2832358a;
+    /* Circle background */
+}
+
+/* Hidden state for app grid */
+#app-grid-container[visible="true"] {
+    transform: translateX(-100%);
+    /* opacity: 0; */
+}
+
+#app-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(130px, 0.5fr));
+    gap: 8px;
+    margin-top: 10px;
+    padding: 5px;
+    background-color: rgba(255, 255, 255, 0);
+}
+
+.app-row {
+    width: 100%;
+    display: flex;
+    gap: inherit;
+    justify-content: center;
+}
+
+.module-icon {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.svg-icon-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.svg-icon-container svg {
+    width: 24px;
+    height: 24px;
+}
+
+.notification-badge {
+    position: absolute;
+    top: -6px;
+    right: -6px;
+    background-color: #ff4444;
+    /* Red color for the badge */
+    color: white;
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: bold;
+    border: 2px solid white;
+    /* White border to make it stand out */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    /* Hidden by default */
+    transform: scale(0);
+    /* Start scaled down */
+    transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+}
+
+.notification-badge.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.icon[enabled="false"] .svg-icon-container svg {
+    opacity: 0.5;
+}
+
+.module-icon .icon {
+    position: relative;
+    transition: all 0.2s;
+    -webkit-filter: saturate(0);
+    transform: scale(0.75);
+    cursor: not-allowed;
+    width: 96px;
+    height: 96px;
+    border-radius: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: white;
+    margin-bottom: 8px;
+}
+
+.module-icon .icon[enabled="true"]:hover {
+    transform: scale(1);
+}
+
+.module-icon .icon[enabled="true"] {
+    transform: scale(0.9);
+    -webkit-filter: saturate(1);
+    cursor: pointer;
+}
+
+.module-icon span {
+    margin: 0;
+    width: 100%;
+    text-align: center;
+    font-size: var(--font-size-md);
+    color: var(--color-text-primary);
+}
+
+.label {
+    width: 100%;
+    font-size: var(--font-size-sm);
+    color: var(--color-text-primary);
+}
+
+.tooltip {
+    position: absolute;
+    background-color: #333;
+    color: white;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 12px;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
+
+.tooltip.show {
+    opacity: 1;
+}
+
+.app-text-container {
+    background-color: var(--color-background-light);
+    text-align: center;
+    height: fit-content;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: var(--config-box-width-min);
+    max-width: var(--config-box-width-max);
+    overflow: hidden;
+    padding: 8px;
+}
+
+.app-text-container br {
+    content: "";
+    margin: 3px 0;
+    display: block;
+}
+
+.progress-container {
+    max-width: 500px;
+    margin: 0 auto;
+}
+
+.progress-bar-wrapper {
+    width: 400px;
+    height: 8px;
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    overflow: hidden;
+    margin-top: 0px;
+    margin-bottom: 16px;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+    height: 100%;
+    width: 0%;
+    background-color: #2196F3;
+    transition: width 0.3s ease, background-color 0.3s ease;
+    border-radius: 4px;
+}
+
+.progress-bar.flashing {
+    background-color: #4CAF50;
+}
+
+.status-text {
+    font-weight: 500;
+    margin-right: 5px;
+}
+
+.percentage {
+    font-weight: bold;
+    color: #2abeebcb;
+}
+
+.progress-info {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 5px;
+    font-size: 14px;
+    color: #28ce80a9;
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background-color: #dddddda2;
+    margin: 20px 0;
+}
+
+remap-selector-container {
+    width: 100%;
+    align-items: center;
+    align-content: center;
+    display: flex;
+    flex-direction: column;
+    gap: inherit;
+    transition: opacity 0.3s ease-in-out;
+}
+
+remap-selector-container[hidden="true"] {
+    opacity: 0;
+}

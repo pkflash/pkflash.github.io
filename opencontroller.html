@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <script type="module" src="/js/esp32webtool/install-button.js"> </script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+</head>
+
+<body>
+  <div class="context">
+
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+    <h1>HHL OpenController DevKit </h1>
+    <h1>Firmware Installer</h1>
+    <div class="box">
+      <h2>Firmware Installer</h2>
+      <p>Version 4.26.2023</p>
+      <p>Resolves some issues with SNES protocol.</p>
+      <p>Controller must be powered ON in retro mode, then plugged in.</p>
+      <p>Implements N64 console support. Controller must be in retro mode and OFF. Plug in to N64, and power N64 console on.</p>
+      <p>Better mappings implemented for N64/GameCube.</p>
+      <esp-web-install-button manifest="/firmware/opencontroller_classic/manifest.json"></esp-web-install-button>
+      <br>
+      <div class="line"></div>
+      <h2>Basic Operation Instructions</h2>
+      <p>Hold select to turn the controller on or off.</p>
+      <p>Hold the following action buttons on power up (Not dpad) to boot into the following modes:</p>
+      <p>Left  -> Wired Mode (SNES/GC/N64)</p>
+      <p>Right -> Nintendo Switch Mode</p>
+      <p>Up    -> XInput Mode</p>
+      <p>Down  -> DInput Mode</p>
+      <div class="line"></div>
+      <p>If no USB cable is connected, the controller will boot into wireless mode (Except in wired mode).</p>
+    </div>
+
+    <div class="box">
+      <h2>HOJA EFM8UB1 Update Required</h2>
+      <p>This update can only be run from Windows currently.</p>
+      <p>Hold the "EN" pin on your ESP32 while plugging in via USB type C.</p>
+      <p>This will enable USB bootloader on the EFM8UB1. Download the zip file linked</p>
+      <p>unzip it, and run the included .bat file to update the firmware.</p>
+      <p>Unplug and replug to finalize the firmware install.</p>
+      <a href="/firmware/hoja_efm8usb/open_controller_usb_3.23.2023.zip" target="_blank">EFM8UB1 3.23.2023 Download
+        Zip</a>
+    </div>
+  </div>
+</body>
+
+</html>

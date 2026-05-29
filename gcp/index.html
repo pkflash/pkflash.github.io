@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <script type="module" src="/js/esp32webtool/install-button.js"> </script>
+  <link rel="stylesheet" href="/css/style.css" type="text/css">
+  <link rel="stylesheet" href="css/gcp_config.css" type="text/css">
+  <link rel="stylesheet" href="/css/sliderPicker.css" type="text/css">
+  <link rel="stylesheet" href="/css/radioPicker.css" type="text/css">
+  <link rel="stylesheet" href="/css/containers.css" type="text/css">
+  
+
+  <!-- Meta Tags required for
+       Progressive Web App -->
+  <meta name="apple-mobile-web-app-status-bar" content="#aa7700">
+  <meta name="theme-color" content="black">
+
+  <!-- Manifest File link -->
+  <link rel="manifest" href="manifest.json">
+</head>
+
+<body>
+  <div class="context">
+
+    <ul class="circles">
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+      <li></li>
+    </ul>
+
+    <h1>GC Pocket Update Tool</h1>
+
+    <div class="box">
+      <div class="box-inner">
+        <!--<button type="button" id="installButton" onclick="installButton()" >{install}</button>-->
+        <!--<div class="row">
+          <button type="button" id="connectButton" onclick="connectButton()">Connect</button>
+          <button type="button" id="disconnectButton" onclick="disconnectButton()" disabled>Disconnect</button>
+        </div>-->
+
+        <!-- INITIAL FW INSTALL MSG BOX ESP32-S3 -->
+        <div class="message-box" id="esp32-initialize-board-box" disabled="true">
+
+          <h2>Update Device</h2>
+          To initialize your GC Pocket, first, unplug the device. Hold down both buttons, then plug in the device via USB.
+          Use the button below to install the new firmware to your GC Pocket. Choose 'USB JTag' to flash the appropriate device.
+
+          <div class="full-width">
+            <div class="line"></div>
+          </div>
+
+          <div class="full-width" id="fwChangeLog">
+            5.21.2024
+            <br>
+            - Update Frame Alignment
+            <br>
+            - FramePerfect Update
+            <br>
+          </div>
+
+          <div class="full-width">
+            <div class="line"></div>
+          </div>
+
+          <div class="row">
+          <esp-web-install-button id="install_esp32" manifest="https://raw.githubusercontent.com/HandHeldLegend/GC-Adapter-ESP32-S3/main/FW/esp32manifest.json"></esp-web-install-button>
+          </div>
+        </div>
+
+        <!-- INITIAL FW INSTALL MSG BOX RP2040 -->
+        <div class="message-box" id="rp2040-initialize-board-box" disabled="true">
+          <h2>Update Device</h2>
+          To initialize your GC Pocket+, hold down both buttons, then plug in the device via USB.
+          Download the firmware using the button below, then drag the firmware to the RPI-RP2 device in your file explorer/Finder app. 
+
+          <div class="full-width">
+            <div class="line"></div>
+          </div>
+
+          <div class="full-width" id="fwChangeLog">
+            5.21.2024
+            <br>
+            - Update Frame Alignment
+            <br>
+            - FramePerfect Update
+            <br>
+          </div>
+
+          <div class="full-width">
+            <div class="line"></div>
+          </div>
+
+          <div class="row">
+          <a id="downloadLink"
+            href="https://github.com/HandHeldLegend/GC-Adapter-RP2040/raw/master/FW/build/gc_adapter_rp2040.uf2" download>
+            <button type="button" id="fwButton">Download</button></div>
+          </a>
+        </div>
+
+        <!-- INFO -->
+        <!-- --------------- -->
+        <div class="collapsible" enabled="true">
+
+          <input id="info-drop" class="toggle" type="checkbox">
+
+          <label for="info-drop" id="info-toggle" , class="lbl-toggle">Usage Info</label>
+          <div class="dropdown">
+            
+
+            <div class="full-width">
+              <p>Use either button to cycle the mode. The LED color indicates the current mode.</p><br>
+              <p>Press both buttons together to save the default mode.</p>
+              <div class="line"></div>
+            </div>
+
+            <div class="full-width">
+            <div class="collapsible-row-double">
+              <row>
+                <h2>Switch Mode</h2>
+                Yellow LED
+              </row>
+              <row>
+                <h2>XInput Mode</h2>
+                Green LED
+              </row>
+            </div></div>
+
+            <div class="line"></div>
+
+            <div class="full-width">
+            <div class="collapsible-row-double">
+              
+              <row>
+                <h2>GC USB Mode</h2>
+                Purple LED
+              </row>
+              <row>
+                <h2>Slippi Mode</h2>
+                Cyan LED
+              </row>
+            </div>
+            </div>
+
+            <div class="line"></div>
+
+            <div class="full-width">
+              Socials
+            <div class="row">
+              
+              <button type="button" onclick="window.open('https:/\/\/discord.gg/nCcbR6Z75C', '_blank')">Discord</button>
+              <button type="button" onclick="window.open('https:/\/\/x.com/MitchHHL', '_blank')">  X  </button>
+            </div>
+          </div>
+
+          </div>
+        </div>
+        <!-- --------------- -->
+
+        <!-- Initialization  -->
+        <!-- --------------- -->
+        <div class="collapsible" enabled="true">
+
+          <input id="init-drop" class="toggle" type="checkbox">
+
+          <label for="init-drop" id="init-toggle" , class="lbl-toggle">Update Device</label>
+          <div class="dropdown">
+
+            
+
+            <div class="full-width">
+              <p>Click the button corresponding to your device.</p>
+              <div class="line"></div>
+            </div>
+
+            <div class="full-width">
+            <div class="row">
+              <button type="button" onclick="window.location.href = window.location.href.split('?')[0] + '?init=gcp'">Single Port</button>
+              <button type="button" onclick="window.location.href = window.location.href.split('?')[0] + '?init=gcpplus'">4 Port</button>
+            </div>
+          </div>
+
+          </div>
+        </div>
+
+
+
+    </div>
+  </div>
+  <!-- --------------- -->
+
+
+
+  </div>
+  </div>
+  </div>
+  <div class="footer">
+    <a href="https://handheldlegend.github.io/attributions.html" target="_blank">JS/CSS Attributions</a> | Site by Mitch
+    Cairns | ©
+    2023, Hand Held Legend
+  </div>
+  <script src="js/gcp_version.js"></script>
+  <script src="js/gcp_config.js"></script>
+
+</body>
+
+</html>
