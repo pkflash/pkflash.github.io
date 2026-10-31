@@ -2,8 +2,10 @@ class NumberSelector extends HTMLElement {
     constructor() {
         super();
         this.attachShadow({ mode: 'open' });
-
+        this._value = 0;
         this._isInternalUpdate = false;
+        this._isRendered = false;
+        this._pendingValue = null;
     }
 
     // Default configuration if not specified
@@ -13,26 +15,50 @@ class NumberSelector extends HTMLElement {
             min: 0,
             max: 100,
             step: 1,
-            defaultValue: 50,
+            value: 0,
             formatter: (value) => value.toString(),
         };
     }
 
     // Observed attributes for configuration
     static get observedAttributes() {
-        return ['type', 'min', 'max', 'step', 'default-value', 'label'];
+        return ['width', 'type', 'min', 'max', 'step', 'value', 'label'];
+    }
+
+    static decimalPlacesForStep(step) {
+        if (!Number.isFinite(step) || step <= 0) return 0;
+        const stepStr = step.toString().toLowerCase();
+        if (stepStr.includes('e-')) {
+            return parseInt(stepStr.split('e-')[1], 10) || 0;
+        }
+        const dot = stepStr.indexOf('.');
+        return dot === -1 ? 0 : stepStr.length - dot - 1;
+    }
+
+    getDecimalPlaces(config = this.getConfig()) {
+        if (config.type !== 'float') return 0;
+        return NumberSelector.decimalPlacesForStep(config.step);
+    }
+
+    formatValue(value, config = this.getConfig()) {
+        return Number(value).toFixed(this.getDecimalPlaces(config));
     }
 
     async connectedCallback() {
         // Load the component-specific CSS
         const csstext = await fetch('./components/number-selector.css');
-        const cssHostResponse = await fetch('./components/host-template.css');
-        const cssHost = await cssHostResponse.text();
-        const css = cssHost + await csstext.text();
+        const css = await csstext.text();
 
         // Render the component with loaded CSS
         this.render(css);
         this.setupEventListeners();
+        this._isRendered = true;
+
+        // Apply any pending value that was set before rendering
+        if (this._pendingValue !== null) {
+            this.setState(this._pendingValue);
+            this._pendingValue = null;
+        }
     }
 
     // Parse configuration from attributes
@@ -42,29 +68,32 @@ class NumberSelector extends HTMLElement {
             min: parseFloat(this.getAttribute('min') ?? NumberSelector.defaultConfig.min),
             max: parseFloat(this.getAttribute('max') ?? NumberSelector.defaultConfig.max),
             step: parseFloat(this.getAttribute('step') ?? NumberSelector.defaultConfig.step),
-            defaultValue: parseFloat(this.getAttribute('default-value') ?? NumberSelector.defaultConfig.defaultValue),
+            value: parseFloat(this.getAttribute('value') ?? this._value ?? parseFloat(this.getAttribute('min') ?? NumberSelector.defaultConfig.min)),
             label: this.getAttribute('label') || '',
         };
     }
 
     render(css) {
         const config = this.getConfig();
+        const width = parseInt(this.getAttribute('width') ?? 300);
 
         this.shadowRoot.innerHTML = `
             <style>${css}</style>
-            <button orientation="left" class="btn-control btn-decrease"><</button>
+            <div class="num-container" style="width:${width}px;">
+            <button orientation="left" class="btn-control btn-decrease">◀</button>
             <div class="slider-container">
                 <input 
                     type="range" 
                     class="slider" 
                     min="${config.min}" 
                     max="${config.max}" 
-                    value="${config.defaultValue}"
+                    value="${this.formatValue(config.value, config)}"
                     step="${config.step}"
                 >
             </div>
-            <div class="value-display">${config.defaultValue}</div>
-            <button orientation="right" class="btn-control btn-increase">></button>
+            <div class="value-display">${this.formatValue(config.value, config)}</div>
+            <button orientation="right" class="btn-control btn-increase">▶</button>
+            </div>
         `;
     }
 
@@ -93,9 +122,9 @@ class NumberSelector extends HTMLElement {
                 e.target.value = value;
             }
 
-            valueDisplay.textContent = value.toFixed(config.type === 'float' ? 2 : 0);
+            valueDisplay.textContent = this.formatValue(value, config);
 
-            if(!this._isInternalUpdate)
+            if (!this._isInternalUpdate)
                 this.dispatchEvent(
                     new CustomEvent('change', {
                         detail: { value },
@@ -113,7 +142,7 @@ class NumberSelector extends HTMLElement {
                 e.target.value = value;
             }
 
-            valueDisplay.textContent = value.toFixed(config.type === 'float' ? 2 : 0);
+            valueDisplay.textContent = this.formatValue(value, config);
         });
 
         // Decrease button
@@ -138,32 +167,45 @@ class NumberSelector extends HTMLElement {
     // Get the current state of the selector
     getState() {
         const slider = this.shadowRoot.querySelector('.slider');
-        const valueDisplay = this.shadowRoot.querySelector('.value-display');
         const config = this.getConfig();
 
         return {
             value: parseFloat(slider.value),
             label: config.label,
             type: config.type,
-            formattedValue: config.type === 'float'
-                ? parseFloat(slider.value).toFixed(2)
-                : parseInt(slider.value, 10),
+            formattedValue: this.formatValue(slider.value, config),
         };
     }
 
     // Set the state of the selector
     setState(value) {
+        // If not rendered yet, store the value and return
+        if (!this._isRendered) {
+            this._pendingValue = value;
+            this._value = value;
+            return;
+        }
+
         this._isInternalUpdate = true;
+        this._value = value;
         const slider = this.shadowRoot.querySelector('.slider');
         const valueDisplay = this.shadowRoot.querySelector('.value-display');
         const config = this.getConfig();
+
+        // Check if slider and valueDisplay exist
+        if (!slider || !valueDisplay) {
+            console.error('Slider or value display not found in shadow DOM.');
+            this._isInternalUpdate = false;
+            return; // Exit if elements are not found
+        }
 
         // Ensure the value is within bounds
         const clampedValue = Math.min(config.max, Math.max(config.min, value));
 
         // Update the slider and display
         slider.value = clampedValue;
-        valueDisplay.textContent = clampedValue.toFixed(config.type === 'float' ? 2 : 0);
+        valueDisplay.textContent = this.formatValue(clampedValue, config);
+
         this._isInternalUpdate = false;
     }
 }

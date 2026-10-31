@@ -16,7 +16,7 @@ export default class Gamepadconfig {
 	}
 
 	/** @type {Uint8Array} */
-	get switch_mac_address() {
+	get gamepad_mac_address() {
 		return this.#_getUint8Array(2, 6);
 	}
 
@@ -46,13 +46,23 @@ export default class Gamepadconfig {
 	}
 
 	/** @type {Uint8Array} */
-	get host_mac_xinput() {
+	get host_mac_sinput() {
 		return this.#_getUint8Array(30, 6);
+	}
+
+	/** @type {Uint8} */
+	get webusb_enable_popup() {
+		return this.#_getUint8(36);
+	}
+
+	/** @type {Uint16} */
+	get wlan_dongle_key() {
+		return this.#_getUint16(37);
 	}
 
 	/** @type {Uint8Array} */
 	get reserved() {
-		return this.#_getUint8Array(36, 28);
+		return this.#_getUint8Array(39, 25);
 	}
 
 
@@ -68,7 +78,7 @@ export default class Gamepadconfig {
 	}
 
 	/** @param {Uint8Array} value */
-	set switch_mac_address(value) {
+	set gamepad_mac_address(value) {
 		this.#_setUint8Array(2, value);
 	}
 
@@ -98,13 +108,23 @@ export default class Gamepadconfig {
 	}
 
 	/** @param {Uint8Array} value */
-	set host_mac_xinput(value) {
+	set host_mac_sinput(value) {
 		this.#_setUint8Array(30, value);
+	}
+
+	/** @param {Uint8} value */
+	set webusb_enable_popup(value) {
+		this.#_setUint8(36, value);
+	}
+
+	/** @param {Uint16} value */
+	set wlan_dongle_key(value) {
+		this.#_setUint16(37, value);
 	}
 
 	/** @param {Uint8Array} value */
 	set reserved(value) {
-		this.#_setUint8Array(36, value);
+		this.#_setUint8Array(39, value);
 	}
 
 

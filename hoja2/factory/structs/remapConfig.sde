@@ -1,7 +1,0 @@
-typedef struct
-{
-    uint8_t remap_config_version;
-    // Switch, XInput, SNES, N64, GameCube
-    buttonRemap_s profiles[12]; // SIZE=16
-    uint8_t  reserved[63];
-} remapConfig_s; 
